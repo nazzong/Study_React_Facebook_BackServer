@@ -56,4 +56,17 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+router.get("/list", async (req, res, next) => {
+  try {
+    const feeds = await Feed.findAll({
+      order: [["createdAt", "DESC"]],
+    });
+
+    return res.status(200).json(feeds);
+  } catch (error) {
+    console.error(error);
+    return res.status(401).send("피드를 가져올 수 없음");
+  }
+});
+
 module.exports = router;
